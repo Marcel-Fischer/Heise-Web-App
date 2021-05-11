@@ -9,11 +9,10 @@ const App = () => {
   const [editArtistText, setEditArtistText] = useState('')
   const [editReleasedYearNumber, setEditRelasedYearNumber] = useState('')
   const baseURL = 'http://localhost:5000/api'
-  const contentType = 'application/json'
 
   // Delete album data from database
   const deleteAlbumData = id => {
-    axios.delete(`http://localhost:5000/api?id=${id}`)
+    axios.delete(`${baseURL}?id=${id}`)
     // Display only the new album data
     const newAlbumData = albumData.filter(album => album.id !== id)
     setAlbumData(newAlbumData)
@@ -21,8 +20,8 @@ const App = () => {
 
   // Fetch album data from database
   const fetchAlbumData = () => {
-    return axios.get('http://localhost:5000/api')
-      .then((response) => {
+    return axios.get(`${baseURL}`)
+      .then(response => {
         return response.data
       })
       .catch(e => {
@@ -45,7 +44,7 @@ const App = () => {
 
   // Put edited album data to database
   const editAlbumData = id => {
-    axios.put(`http://localhost:5000/api?id=${id}`, editedAlbumData)
+    axios.put(`${baseURL}?id=${id}`, editedAlbumData)
     // Display the new album Data
     const updatedAlbum = [...albumData].map((album) => {
       if (album.id === id) {
